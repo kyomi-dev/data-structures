@@ -38,6 +38,23 @@ int find(Array* arr, int firstElement, int lastElement, int value) {
     }
 }
 
+void del(Array* arr) {
+    int element;
+    printf("Enter the element you want to remove: ");
+    scanf("%d", &element);
+
+    int index = find(arr, 0, arr->length - 1, element);
+
+    if (index != -1) {
+        for (int i = index; i < arr->length - 1; i++) {
+            arr->a[i] = arr->a[i + 1];
+        }
+        arr->length--;
+        printf("Element %d removed successfully.\n", element);
+    } else {
+        printf("Element not found in the array.\n");
+    }
+}
 
 int main() {
     Array arr;
@@ -51,6 +68,14 @@ int main() {
 
     insert(&arr);
     display(&arr);
+    del(&arr);
+    display(&arr);
+
+    int element;
+    printf("Enter the element you want to find: ");
+    scanf("%d", &element);
+
+    find(&arr, 0, arr.length - 1, element);
     free(arr.a);
 
     return 0;
