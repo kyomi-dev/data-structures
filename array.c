@@ -23,6 +23,22 @@ void display(Array* arr) {
     printf("\n");
 }
 
+int find(Array* arr, int firstElement, int lastElement, int value) {
+    int mid = (firstElement + lastElement) / 2;
+
+    if (firstElement > lastElement) return -1;
+    if (arr->a[mid] == value) {
+        printf("Element found at index: %d\n", mid);
+        return mid;
+    }
+
+    else if(arr->a[mid] < value) return find(arr, mid + 1, lastElement, value);
+    else {
+        return find(arr, firstElement, mid - 1, value);
+    }
+}
+
+
 int main() {
     Array arr;
 
