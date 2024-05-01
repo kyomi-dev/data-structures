@@ -56,6 +56,17 @@ void del(Array* arr) {
     }
 }
 
+int set(Array* arr, int value,  int index){
+    if (index >= 0 && index <= arr->length - 1) {
+        arr->a[index] = value;
+        return 0;
+    }
+    else {
+        printf("Array has length of = %d but you're trying to access index %d\n", arr->length, index);
+        return -1;
+    }
+}
+
 int main() {
     Array arr;
 
@@ -76,6 +87,8 @@ int main() {
     scanf("%d", &element);
 
     find(&arr, 0, arr.length - 1, element);
+    set(&arr, 40, 3);
+    display(&arr);
     free(arr.a);
 
     return 0;
