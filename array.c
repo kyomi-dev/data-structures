@@ -98,6 +98,18 @@ int lshift(Array* arr) {
     return 0;
 }
 
+int rshift(Array* arr) {
+    int lastElement = arr->a[arr->length - 1];
+
+    for (int i = arr->length - 1; i > 0; i--) {
+        arr->a[i] = arr->a[i - 1];
+    }
+
+    arr->a[0] = lastElement;
+
+    return 0;
+}
+
 
 
 int max(Array* arr) {
