@@ -67,6 +67,26 @@ int set(Array* arr, int value,  int index){
     }
 }
 
+int reverse(Array* arr) {
+    int* tempArray;
+    tempArray = (int*)malloc(arr->size);
+    if (tempArray == NULL) {
+        return -1;
+    }
+
+    for (int i = arr->length - 1, j = 0; i >= 0; i--, j++) {
+        tempArray[j] = arr->a[i];
+    }
+
+    for (int i = 0; i < arr->length; i++) {
+        arr->a[i] = tempArray[i];
+    }
+
+    free(tempArray);
+    return 0;
+}
+
+
 int max(Array* arr) {
     int maxValue = 0;
 
@@ -126,6 +146,8 @@ int main() {
     display(&arr);
     max(&arr);
     avg(&arr);
+    reverse(&arr);
+    display(&arr);
     free(arr.a);
 
     return 0;
