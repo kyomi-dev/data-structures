@@ -67,6 +67,41 @@ int set(Array* arr, int value,  int index){
     }
 }
 
+int max(Array* arr) {
+    int maxValue = 0;
+
+    for (int i = 0; i < arr->length - 2; i++) {
+        if (arr->a[i] > arr->a[i + 1]) {
+            maxValue = arr->a[i];
+        } else {
+            maxValue = arr->a[i + 1];
+        }
+    }
+    printf("Maximum value is: %d\n", maxValue);
+    return maxValue;
+}
+
+double avg(Array* arr) {
+    int sum = 0;
+    
+    for (int i = 0; i < arr->length; i++) {
+        sum += arr->a[i];
+    }
+
+    double average = (double)sum / arr->length; 
+    printf("Average value is: %.2lf\n", average);
+    return average;
+}
+
+
+
+void swap(int firstNumber, int secondNumber) {
+    int temp;
+    temp = firstNumber;
+    firstNumber = secondNumber;
+    temp = secondNumber;
+}
+
 int main() {
     Array arr;
 
@@ -89,6 +124,8 @@ int main() {
     find(&arr, 0, arr.length - 1, element);
     set(&arr, 40, 3);
     display(&arr);
+    max(&arr);
+    avg(&arr);
     free(arr.a);
 
     return 0;
