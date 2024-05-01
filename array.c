@@ -86,6 +86,19 @@ int reverse(Array* arr) {
     return 0;
 }
 
+int lshift(Array* arr) {
+    int firstElement = arr->a[0];
+
+    for (int i = 0; i < arr->length - 1; i++) {
+        arr->a[i] = arr->a[i + 1];
+    }
+
+    arr->a[arr->length - 1] = firstElement;
+
+    return 0;
+}
+
+
 
 int max(Array* arr) {
     int maxValue = 0;
@@ -147,6 +160,8 @@ int main() {
     max(&arr);
     avg(&arr);
     reverse(&arr);
+    display(&arr);
+    lshift(&arr);
     display(&arr);
     free(arr.a);
 
