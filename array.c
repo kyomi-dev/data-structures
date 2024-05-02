@@ -110,8 +110,6 @@ int rshift(Array* arr) {
     return 0;
 }
 
-
-
 int max(Array* arr) {
     int maxValue = 0;
 
@@ -138,14 +136,34 @@ double avg(Array* arr) {
     return average;
 }
 
-
-
-void swap(int firstNumber, int secondNumber) {
-    int temp;
-    temp = firstNumber;
-    firstNumber = secondNumber;
-    temp = secondNumber;
+bool isSorted(Array* arr) {
+    for (int i = 0; i < arr->length - 1; i++) {
+        int previousElement = arr->a[i];
+        int currentElement = arr->a[i + 1];
+        if (previousElement > currentElement) {
+            printf("Array is not sorted.\n");
+            return false;
+        }
+    }
+        printf("Array is sorted.\n");
+        return true;
 }
+
+bool sort(Array* arr) {
+    int length = arr->length;
+    for (int i = 1; i < length; i++) {
+        int key = arr->a[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr->a[j] > key) {
+            arr->a[j + 1] = arr->a[j];
+            j = j - 1;
+        }
+        arr->a[j + 1] = key;
+    }
+    return true;
+}
+
 
 int main() {
     Array arr;
@@ -159,6 +177,10 @@ int main() {
 
     insert(&arr);
     display(&arr);
+    isSorted(&arr);
+    sort(&arr);
+    display(&arr);
+    isSorted(&arr);
     del(&arr);
     display(&arr);
 
@@ -175,6 +197,7 @@ int main() {
     display(&arr);
     lshift(&arr);
     display(&arr);
+    
     free(arr.a);
 
     return 0;
