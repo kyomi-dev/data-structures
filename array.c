@@ -164,6 +164,24 @@ bool sort(Array* arr) {
     return true;
 }
 
+bool concat(Array* arr1, Array* arr2) {
+    Array concatArray;
+    concatArray = (int*)malloc((arr1->length + arr2->length) * sizeof(int));
+
+    for (int i = 0; i < arr1->length, i++) {
+        concatArray[i] = arr->a[i];
+    }
+
+    for (int i = arr1->length, k=0; i < arr2->length; i++, k++) {
+        concatArray[i] = arr2->a[k];
+    }
+
+    free(arr1->a);
+    arr1->a = concatArray;
+    arr1->length += arr2->length;
+    return true;
+}
+
 
 int main() {
     Array arr;
