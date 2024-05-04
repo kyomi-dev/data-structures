@@ -9,6 +9,12 @@ typedef struct Array {
 } Array;
 
 void insert(Array* arr) {
+    printf("Enter the length of the array: ");
+    int length;
+    scanf("%d", &length);
+    arr->length = length;
+    arr->a = (int*)malloc(sizeof(int) * length);
+
     printf("Enter the numbers, separated by a space: ");
     for (int i = 0; i < arr->length; i++) {
         scanf("%d", &arr->a[i]);
@@ -69,7 +75,7 @@ int set(Array* arr, int value,  int index){
 
 int reverse(Array* arr) {
     int* tempArray;
-    tempArray = (int*)malloc(arr->size);
+    tempArray = (int*)malloc(sizeof(int) * arr->length);
     if (tempArray == NULL) {
         return -1;
     }
@@ -164,59 +170,72 @@ bool sort(Array* arr) {
     return true;
 }
 
+Array intersection(Array* arr1, Array* arr2) {
+    Array intersection;
+    intersection.a = (int*)malloc(sizeof(int) * (arr1->length + arr2->length));
+    intersection.length = 0;
+
+    for (int i = 0; i < arr1->length; i++) {
+        for (int j = 0; j < arr2->length; j++) {
+            if (arr1->a[i] == arr2->a[j]) {
+                intersection.a[intersection.length++] = arr1->a[i];
+                break;
+            }
+        }
+    }
+    return intersection;
+}
+
+Array difference(Array* arr1, Array* arr2) {
+    Array difference;
+    difference.a = (int*)malloc(sizeof(int) * (arr1->length));
+    difference.length = 0;
+
+    for (int i = 0; i < arr1->length; i++) {
+        int found = 0;
+        for (int j = 0; j < arr2->length; j++) {
+            if (arr1->a[i] == arr2->a[j]) {
+                found = 1;
+                break;
+            }
+        }
+        if (!found) {
+            difference.a[difference.length++] = arr1->a[i];
+        }
+    }
+
+    return difference;
+}
+
+
 bool concat(Array* arr1, Array* arr2) {
-    Array concatArray;
-    concatArray = (int*)malloc((arr1->length + arr2->length) * sizeof(int));
+    arr1->a = (int*)realloc(arr1->a, (arr1->length + arr2->length) * sizeof(int));
 
-    for (int i = 0; i < arr1->length, i++) {
-        concatArray[i] = arr->a[i];
+    for (int i = 0; i < arr2->length; i++) {
+        arr1->a[arr1->length + i] = arr2->a[i];
     }
 
-    for (int i = arr1->length, k=0; i < arr2->length; i++, k++) {
-        concatArray[i] = arr2->a[k];
-    }
-
-    free(arr1->a);
-    arr1->a = concatArray;
     arr1->length += arr2->length;
     return true;
 }
 
-
 int main() {
-    Array arr;
+    Array arr1;
+    Array arr2;
 
-    printf("Enter the array length: ");
-    scanf("%d", &arr.length);
-
-    arr.size = arr.length * sizeof(int);
-
-    arr.a = (int*)malloc(sizeof(int) * arr.length);
-
-    insert(&arr);
-    display(&arr);
-    isSorted(&arr);
-    sort(&arr);
-    display(&arr);
-    isSorted(&arr);
-    del(&arr);
-    display(&arr);
-
-    int element;
-    printf("Enter the element you want to find: ");
-    scanf("%d", &element);
-
-    find(&arr, 0, arr.length - 1, element);
-    set(&arr, 40, 3);
-    display(&arr);
-    max(&arr);
-    avg(&arr);
-    reverse(&arr);
-    display(&arr);
-    lshift(&arr);
-    display(&arr);
-    
-    free(arr.a);
+    insert(&arr1);
+    sort(&arr1);
+    display(&arr1);
+    insert(&arr2);
+    sort(&arr2);
+    display(&arr2);
+    Array intersectionArray = intersection(&arr1, &arr2);
+    display(&intersectionArray);
+    Array differenceArray = difference(&arr1, &arr2);
+    printf("Difference below: \n");
+    display(&differenceArray);
+    free(intersectionArray.a);
+    free(differenceArray.a);
 
     return 0;
 }
