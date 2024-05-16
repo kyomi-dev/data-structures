@@ -1,79 +1,68 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-
+#include <stdbool.h>
 
 typedef struct Node {
-	void* data;
-	struct Node* next;
+    int data;
+    struct Node* next;
 } Node;
 
+void display(Node* node) {
+    while (node != NULL) {
+        printf("Value: %d\n", node->data);
+        node = node->next;
+    }
+}
+
+Node* create(int value) {
+    Node* createdNode = (Node*)malloc(sizeof(Node));
+    createdNode->data = value;
+    createdNode->next = NULL;
+    return createdNode;
+}
+
+bool insert(Node** head, int value, size_t position) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (position == 1) {
+        newNode->next = *head;
+        *head = newNode;
+        return true;
+    }
+
+    Node* current = *head;
+    for (size_t i = 1; i < position - 1; i++) {
+        if (current == NULL) {
+            free(newNode);
+            return false;
+        }
+        current = current->next;
+    }
+
+    if (current == NULL) {
+        free(newNode);
+        return false;
+    }
+
+    newNode->next = current->next;
+    current->next = newNode;
+
+    return true;
+}
+
 int main() {
-	Node* p = (Node*)malloc(sizeof(Node));
-	if (p == NULL) {
-		printf("Memory allocation failed.\n");
-		return 1;
-	}
+    Node* head = create(5);
+    display(head);
+    printf("\n");
 
-	printf("What would be the value in your linked list?\n");
-	printf("\t 1. An integer\n");
-	printf("\t 2. A float\n");
-	printf("\t 3. A double\n");
-	printf("\t 4. A char\n");
-	int option;
-	scanf("%d", &option);
+    insert(&head, 10, 2);
+    insert(&head, 52, 3);
+    insert(&head, -9, 4);
+    insert(&head, 90, 5);
+    insert(&head, -6, 6);
 
-	switch(option) {
-		case 1:
-			printf("Enter an integer: \n");
-			int value;
-			scanf("%d", &value);
-			p->data = malloc(sizeof(int));
-			*(int*)(p->data) = value;
-			p->next = NULL;
-
-			printf("Node data: %d\nNode next: %s\n", *(int*)p->data, p->next);
-			break;
-
-		case 2:
-			printf("Enter a float: \n");
-			float float_value;
-			scanf("%f", &float_value);
-			p->data = malloc(sizeof(float));
-			*(float*)(p->data) = float_value;
-			p->next = NULL;
-
-			printf("Node data: %.2f\nNode next: %s\n", *(float*)p->data, p->next);
-			break;
-
-
-		case 3:
-			printf("Enter a double: ");
-			double double_value;
-			scanf("%lf", &double_value);
-			p->data = malloc(sizeof(double));
-			*(double*)(p->data) = double_value;
-			p->next = NULL;
-
-			printf("\nNode data: %.2lf\nNode next: %s\n", *(double*)p->data, p->next);
-			break;
-
-		case 4:
-			printf("Enter a char: ");
-			char char_value;
-			scanf(" %c", &char_value);
-			p->data = malloc(sizeof(char));
-			*(char*)(p->data) = char_value;
-			p->next = NULL;
-
-			printf("\nNode data: %c\nNode next: %s\n", *(char*)p->data, p->next);
-			break;
-
-		default:
-			return 1;
-	}
-
-	free(p->data);
-	free(p);
-	return 0;
+    display(head);
+    return 0;
 }
