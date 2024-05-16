@@ -52,17 +52,42 @@ bool insert(Node** head, int value, size_t position) {
     return true;
 }
 
+bool del(Node** head, size_t position) {
+	Node* current = *head;
+    Node* previous = NULL;
+
+    if (*head == NULL) {
+        return false;
+    }
+
+
+    if (position == 1) {
+        *head = current->next;
+        free(current);
+        return true;
+    }
+
+    for (size_t i = 1; i < position; i++) {
+        previous = current;
+        current = current->next;
+    }
+
+    previous->next = current->next;
+    free(current);
+    return true;
+}
+
 int main() {
     Node* head = create(5);
-    display(head);
-    printf("\n");
-
     insert(&head, 10, 2);
     insert(&head, 52, 3);
     insert(&head, -9, 4);
     insert(&head, 90, 5);
     insert(&head, -6, 6);
-
-    display(head);
+	printf("The list is: \n");
+	display(head);
+	del(&head, 2);
+	printf("\nThe list after deletion is: \n");
+	display(head);
     return 0;
 }
