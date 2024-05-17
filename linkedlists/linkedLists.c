@@ -80,6 +80,14 @@ int main() {
     insert(&head, -9, 4);
     insert(&head, 90, 5);
     insert(&head, -6, 6);
+
+    Node* head2 = create(200);
+    insert(&head2, 300, 2);
+    insert(&head2, 400, 3);
+    insert(&head2, 500, 4);
+    insert(&head2, 600, 5);
+    insert(&head2, 700, 6);
+    concatenate(&head, &head2);
 	printf("The list is: \n");
 	display(head);
 	del(&head, 3);
