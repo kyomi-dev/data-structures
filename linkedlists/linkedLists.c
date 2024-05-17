@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
+#include "linkedLists.h"
 
 void display(Node* node) {
     while (node != NULL) {
@@ -86,7 +82,7 @@ int main() {
     insert(&head, -6, 6);
 	printf("The list is: \n");
 	display(head);
-	del(&head, 2);
+	del(&head, 3);
 	printf("\nThe list after deletion is: \n");
 	display(head);
     return 0;

@@ -1,12 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "array.h"
 
-typedef struct Array {
-    int* a;
-    int size;
-    int length;
-} Array;
 
 void insert(Array* arr) {
     printf("Enter the length of the array: ");
