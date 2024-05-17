@@ -73,6 +73,28 @@ bool del(Node** head, size_t position) {
     return true;
 }
 
+bool concatenate(Node** firstHead, Node** secondHead) {
+    Node* current = *firstHead;
+
+    if (*firstHead == NULL) {
+        *firstHead = *secondHead;
+        return true;
+    }
+
+    while (current->next != NULL) {
+        current = current->next;
+
+        if (current->next == NULL) {
+            current->next = *secondHead;
+            break;
+        }
+    }
+    
+    return true;
+}
+
+
+
 int main() {
     Node* head = create(5);
     insert(&head, 10, 2);
