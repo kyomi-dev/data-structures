@@ -93,6 +93,29 @@ bool concatenate(Node** firstHead, Node** secondHead) {
     return true;
 }
 
+bool isSorted(Node* firstHead) {
+    Node* previous = NULL;
+    Node* current = firstHead;
+
+    if (firstHead == NULL) {
+        printf("First node is non-existent.\n");
+        return false;
+    }
+
+    while (current->next != NULL) {
+        previous = current;
+        current = current->next;
+
+        if (previous->data > current->data) {
+            printf("Not sorted.\n");
+            return false;
+        }
+    }
+
+    printf("It's sorted.\n");
+    return true;
+
+}
 
 
 int main() {
@@ -104,10 +127,10 @@ int main() {
     insert(&head, -6, 6);
 
     Node* head2 = create(200);
-    insert(&head2, 300, 2);
+    insert(&head2, 200, 2);
     insert(&head2, 400, 3);
     insert(&head2, 500, 4);
-    insert(&head2, 600, 5);
+    insert(&head2, 500, 5);
     insert(&head2, 700, 6);
     concatenate(&head, &head2);
 	printf("The list is: \n");
@@ -115,5 +138,6 @@ int main() {
 	del(&head, 3);
 	printf("\nThe list after deletion is: \n");
 	display(head);
+    isSorted(head2);
     return 0;
 }
