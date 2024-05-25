@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include "linkedLists.h"
 
 void display(Node* node) {
@@ -117,6 +118,31 @@ bool isSorted(Node* firstHead) {
 
 }
 
+bool isLoop(Node* head) {
+    Node* slow = head;
+    Node* fast = head;
+
+    if (head == NULL) {
+        printf("The list is empty.\n");
+        return false;
+    }
+
+  
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            printf("There's a loop in this linked list.\n");
+            return true;
+        }
+    }
+
+    printf("There's no loop in this linked list.\n");
+    return false;
+}
+
+
 
 int main() {
     Node* head = create(5);
@@ -139,5 +165,15 @@ int main() {
 	printf("\nThe list after deletion is: \n");
 	display(head);
     isSorted(head2);
+
+    Node* head3 = create(2);
+    insert(&head3, 4, 2);
+    insert(&head3, 6, 3);
+    insert(&head3, 1, 4);
+    insert(&head3, 8, 5);
+    insert(&head3, 0, 6);
+
+    head3->next->next->next->next->next->next = head3->next->next;
+    isLoop(head3);
     return 0;
 }
