@@ -16,3 +16,5 @@ bool concatenate(Node** firstHead, Node** secondHead);
 bool isSorted(Node* firstHead);
 
 bool merge(Node** firstHead, Node** secondHead);
+
+bool isLoop(Node* first);
